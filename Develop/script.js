@@ -28,6 +28,12 @@ function setCharacterType() {
 function generatePassword() {
   setPasswordLength();
   setCharacterType();
+
+  // not a single type selected
+  if (lowerCaseType === false && upperCaseType === false && numericType === false && specialType === false){
+    alert("At least one character type needs to be selected");
+    generatePassword();
+  }
 }
 
 

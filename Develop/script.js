@@ -70,11 +70,15 @@ function setCharacterType() {
 
 // construct password
 function createPassword() {
+  // reset password to empty string for consecutive password creations
+  password = "";
   for (let i = 0; i < passwordLength; i++){
     let randomChar = possibleChars[Math.floor(Math.random()*possibleChars.length)];
     password += randomChar;
   }
 
+  console.log("password: ", password);
+  console.log("password length: ", password.length);
   return password;
 }
 

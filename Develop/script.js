@@ -1,5 +1,6 @@
 // Assignment code here
-let constructedPassword = [];
+let password = "";
+let possibleChars = [];
 let passwordLength = 0;
 let lowerCaseType = false;
 let upperCaseType = false;
@@ -14,55 +15,81 @@ let specialChars = " !\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~".split('');
 function setPasswordLength() {
   passwordLength = prompt("Choose a length between 8-128 for the length of the password");
 
+  // cancel button
+  if (passwordLength == null){
+    return null;
+  }
+
+  // invalid input
+  else if (isNaN(passwordLength)){
+    alert("Invalid input. Password must be a number between 8-128 characters.")
+    setPasswordLength();
+  }
+
   // invalid length
-  if (passwordLength < 8 || passwordLength > 128) {
+  else if (passwordLength < 8 || passwordLength > 128) {
     alert("Invalid password length. Password must be 8-128 characters.")
     setPasswordLength();
   }
 }
 
+
+// create array of potential characters for password
 function setCharacterType() {
   lowerCaseType = confirm("Would you like the password to contain lowercase type characters?")
   upperCaseType = confirm("Would you like the password to contain upperCase type characters?")
   numericType = confirm("Would you like the password to contain numeric type characters?")
   specialType = confirm("Would you like the password to contain special type characters?")
-}
 
-// create array of potential characters for password
-function constructPassword() {
+  // not a single type selected
+  if (lowerCaseType === false && upperCaseType === false && numericType === false && specialType === false){
+    alert("At least one character type needs to be selected");
+    setCharacterType();
+  }
+
   if (lowerCaseType === true){
-    constructedPassword = constructedPassword.concat(lowerCaseChars);
+    possibleChars = possibleChars.concat(lowerCaseChars);
     console.log("lower case true");
   }
   if (upperCaseType === true){
-    constructedPassword = constructedPassword.concat(upperCaseChars);
+    possibleChars = possibleChars.concat(upperCaseChars);
     console.log("upper case true");
 
   }
-  if (numericChars === true){
-    constructedPassword = constructedPassword.concat(numericChars);
+  if (numericType === true){
+    possibleChars = possibleChars.concat(numericChars);
     console.log("numeric case true");
 
   }
-  if (specialChars === true){
-    constructedPassword = constructedPassword.concat(specialChars)
+  if (specialType === true){
+    possibleChars = possibleChars.concat(specialChars)
     console.log("special case true");
 
   }
 }
 
-// prompts to create password
+// construct password
+function createPassword() {
+  for (let i = 0; i < passwordLength; i++){
+    let randomChar = possibleChars[Math.floor(Math.random()*possibleChars.length)];
+    password += randomChar;
+  }
+  console.log("password", password);
+}
+
+// initiate prompts to create password
 function generatePassword() {
-  setPasswordLength();
+  // if click cancel button, exit function
+  if (setPasswordLength() === null){
+    return;
+  }
+
+  // retrieve selected character types
   setCharacterType();
 
-  constructPassword();
-
-  // not a single type selected
-  if (lowerCaseType === false && upperCaseType === false && numericType === false && specialType === false){
-    alert("At least one character type needs to be selected");
-    generatePassword();
-  }
+  // construct password based on length and character types
+  createPassword();
+  
 }
 
 

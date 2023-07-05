@@ -49,21 +49,21 @@ function setCharacterType() {
 
   if (lowerCaseType === true){
     possibleChars = possibleChars.concat(lowerCaseChars);
-    console.log("lower case true");
+    //console.log("lower case true");
   }
   if (upperCaseType === true){
     possibleChars = possibleChars.concat(upperCaseChars);
-    console.log("upper case true");
+    //console.log("upper case true");
 
   }
   if (numericType === true){
     possibleChars = possibleChars.concat(numericChars);
-    console.log("numeric case true");
+    //console.log("numeric case true");
 
   }
   if (specialType === true){
     possibleChars = possibleChars.concat(specialChars)
-    console.log("special case true");
+    //console.log("special case true");
 
   }
 }
@@ -74,7 +74,8 @@ function createPassword() {
     let randomChar = possibleChars[Math.floor(Math.random()*possibleChars.length)];
     password += randomChar;
   }
-  console.log("password", password);
+
+  return password;
 }
 
 // initiate prompts to create password
@@ -88,8 +89,7 @@ function generatePassword() {
   setCharacterType();
 
   // construct password based on length and character types
-  createPassword();
-  
+  return createPassword();
 }
 
 
